@@ -3,14 +3,16 @@ package no.hvl.dat108.f12;
 import java.time.LocalDate;
 
 import javax.validation.constraints.Size;
-
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 public class Person {
-	@Size(min=2 message="feilmelding")
+	@Size(min=2, message="Navn må inneholde minst 2 tegn")
 	private String navn;
 	
-	@Pattern(regexp = "^\\d{8}$") // Eller "^[0-9]{8}$"
+	@Pattern(regexp = "^\\d{8}$", message="Mobilnummer må være eksakt 8 sifre") // Eller "^[0-9]{8}$"
 	private String mobil;
 
 	@Min(100)
