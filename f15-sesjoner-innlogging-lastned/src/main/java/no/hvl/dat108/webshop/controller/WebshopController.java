@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import no.hvl.dat108.webshop.util.LoginUtil;
+
 @Controller
 @RequestMapping("/webshop")
 public class WebshopController {
@@ -22,6 +24,12 @@ public class WebshopController {
 	 */
 	@GetMapping
     public String visWebshoppen(HttpSession session, RedirectAttributes ra) {
+
+		if(!LoginUtil.erBrukerInnlogget(session)) {
+			ra.addFlashAttribute("redirectMessage",REQUIRES_LOGIN_MESSAGE);
+			return "redirect:" + "login";
+		}
+
 		return "webshopView";
     }
 
@@ -32,6 +40,16 @@ public class WebshopController {
     public String leggVarerIHandlekurv(
     		@RequestParam(name="vare", required=false) List<String> varer,
     		HttpSession session, RedirectAttributes ra) {
+
+		if(!LoginUtil.erBrukerInnlogget(session)) {
+			ra.addFlashAttribute("redirectMessage",REQUIRES_LOGIN_MESSAGE);
+			return "redirect:" + "login";
+		}
+
+		// Oppdatere cart med data fra request-param vare
+
+		Cart cart = (Cart) session.getAttribute("cart");
+
 		return "redirect:" + "webshop";
     }
 }

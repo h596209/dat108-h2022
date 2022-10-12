@@ -8,7 +8,7 @@
 </head>
 
 <body>
-	<p>Du er innlogget som ${username}<br>
+	<p>Du er innlogget som <c:out value="${username}"/><br>
 	Totalt i handlekurv: kr ${cart.total}</p>
 	<table><tr>
 			<th>Vare</th>
